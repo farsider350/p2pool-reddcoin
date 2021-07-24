@@ -168,7 +168,7 @@ def submit_block(block, ignore_failure, factory, bitcoind, bitcoind_work, net):
 @defer.inlineCallbacks
 def check_block_header(bitcoind, block_hash):
     try:
-        yield bitcoind.rpc_getblockheader(block_hash)
+        yield bitcoind.rpc_getblock(block_hash)
     except jsonrpc.Error_for_code(-5):
         defer.returnValue(False)
     else:

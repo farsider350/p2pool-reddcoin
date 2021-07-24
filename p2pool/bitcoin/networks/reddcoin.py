@@ -14,7 +14,7 @@ RPC_PORT = 2002
 RPC_CHECK =RPC_CHECK = defer.inlineCallbacks(lambda bitcoind: defer.returnValue(
 #            'reddcoin' in (yield bitcoind.rpc_help()) 
             (yield helper.check_block_header(bitcoind, 'b868e0d95a3c3c0e0dadc67ee587aaf9dc8acbf99e3b4b3110fad4eb74c1decc')) and
-                          (yield bitcoind.rpc_getinfo())['chain'] == 'main'
+                          (yield bitcoind.rpc_getblockchaininfo())['chain'] == 'main'
         ))
 SUBSIDY_FUNC = lambda height: 10000*100000000 >> (height + 1)//210000
 POW_FUNC = lambda data: pack.IntType(256).unpack(__import__('ltc_scrypt').getPoWHash(data))
