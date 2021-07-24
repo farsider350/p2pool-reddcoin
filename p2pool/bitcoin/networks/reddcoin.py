@@ -11,9 +11,10 @@ P2P_PREFIX = 'fbc0b6db'.decode('hex')
 P2P_PORT = 45444
 ADDRESS_VERSION = 61
 RPC_PORT = 2002
-RPC_CHECK = defer.inlineCallbacks(lambda bitcoind: defer.returnValue(
-            (yield helper.check_genesis_block(bitcoind, 'b868e0d95a3c3c0e0dadc67ee587aaf9dc8acbf99e3b4b3110fad4eb74c1decc')) and
-            (yield bitcoind.rpc_getblockchaininfo())['chain'] == 'main'
+RPC_CHECK =RPC_CHECK = defer.inlineCallbacks(lambda bitcoind: defer.returnValue(
+#            'reddcoin' in (yield bitcoind.rpc_help()) 
+            (yield helper.check_block_header(bitcoind, 'b868e0d95a3c3c0e0dadc67ee587aaf9dc8acbf99e3b4b3110fad4eb74c1decc')) and
+                          (yield bitcoind.rpc_getinfo())['chain'] == 'main'
         ))
 SUBSIDY_FUNC = lambda height: 10000*100000000 >> (height + 1)//210000
 POW_FUNC = lambda data: pack.IntType(256).unpack(__import__('ltc_scrypt').getPoWHash(data))
